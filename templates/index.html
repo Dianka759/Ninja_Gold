@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <title>Dojo Gold</title>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <p class="text-warning">Total Gold: {{session['totalgold']}}</p>
+
+        <div class="row text-center gap-3">
+            <div class="col border border-danger p-3 mt-2 shadow-sm">
+                <h3>Farm</h3>
+                <p>(earns 10-20 golds) </p>
+                <form action="/process_money" method="post">
+                    <input type="hidden" name="building" value="farm" />
+                    <input type="submit" value="Find Gold!" class="btn btn-outline-warning" />
+                </form>
+            </div>
+            <div class="col border border-danger p-3 mt-2 shadow-sm">
+                <h3>Cave</h3>
+                <p>(earns 5-10 golds) </p>
+                <form action="/process_money" method="post">
+                    <input type="hidden" name="building" value="cave" />
+                    <input type="submit" value="Find Gold!" class="btn btn-outline-warning" />
+                </form>
+            </div>
+            <div class="col border border-danger p-3 mt-2 shadow-sm">
+                <h3>House</h3>
+                <p>(earns 2-5 golds) </p>
+                <form action="/process_money" method="post">
+                    <input type="hidden" name="building" value="house" />
+                    <input type="submit" value="Find Gold!" class="btn btn-outline-warning" />
+                </form>
+            </div>
+            <div class="col border border-danger p-3 mt-2 shadow-sm">
+                <h3>Casino</h3>
+                <p>(earns/takes 0-50 golds) </p>
+                <form action="/process_money" method="post">
+                    <input type="hidden" name="building" value="casino" />
+                    <input type="submit" value="Find Gold!" class="btn btn-outline-warning" />
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-5">
+            <label for="activites">Activities:</label>
+            <div class="p-2 border border-3 border-warning ">
+            {% if message %}
+                {% for message in message %}
+                    {% if "Yikers" in message %}
+                    <p style='color: red'>{{message}}</p>
+                    {% else %}
+                    <p style='color: green'>{{message}}</p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+        <div class="mt-4 d-flex justify-content-center">
+            <form action="/reset">
+                <button class="btn btn-outline-danger">Restart the game!</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
